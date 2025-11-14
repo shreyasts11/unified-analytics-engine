@@ -10,13 +10,20 @@ const options = {
       description: "API documentation for the analytics backend",
     },
     servers: [
-      { url: "https://unified-analytics-engine-production.up.railway.app",
-    description: "Production Server", }
+      {
+        url: "https://unified-analytics-engine-production.up.railway.app",
+        description: "Production Server",
+      },
     ],
   },
 
-  // IMPORTANT: absolute path to route files
-  apis: [path.join(process.cwd(), "src/routes/*.ts")],
+  apis: [
+    path.join(process.cwd(), "src/routes/*.ts"),  // local
+    path.join(process.cwd(), "src/controllers/*.ts"),
+
+    path.join(process.cwd(), "dist/routes/*.js"), // production
+    path.join(process.cwd(), "dist/controllers/*.js"),
+  ],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
