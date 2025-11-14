@@ -10,7 +10,8 @@ const options = {
       description: "API documentation for the analytics backend",
     },
     servers: [
-      { url: "http://localhost:3000" }
+      { url: "https://unified-analytics-engine-production.up.railway.app",
+    description: "Production Server", }
     ],
   },
 
