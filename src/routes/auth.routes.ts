@@ -1,0 +1,78 @@
+// src/routes/auth.routes.ts
+import { Router } from "express";
+import { registerApp, getApiKeys, revokeApiKey } from "../controllers/auth.controller";
+
+const router = Router();
+
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: API key management
+ */
+
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Register a new website/app and generate an API key
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               owner:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: App registered successfully
+ *       400:
+ *         description: Invalid input
+ */
+router.post("/register", registerApp);
+
+/**
+ * @swagger
+ * /api/auth/api-key:
+ *   get:
+ *     summary: Retrieve all API keys for an app
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: query
+ *         name: app_id
+ *         schema:
+ *           type: string
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: API keys fetched successfully
+ */
+router.get("/api-key", getApiKeys);
+
+/**
+ * @swagger
+ * /api/auth/revoke:
+ *   post:
+ *     summary: Revoke an existing API key
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               apiKey:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: API key revoked
+ */
+router.post("/revoke", revokeApiKey);
+
+export default router;
